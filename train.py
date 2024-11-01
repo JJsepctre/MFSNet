@@ -19,6 +19,9 @@ from thop import clever_format
 
 __all__ = ['Res2Net', 'res2net50_v1b', 'res2net101_v1b', 'res2net50_v1b_26w_4s']
 
+from torchvision.models.resnet import model_urls
+
+
 class SkinDataset(data.Dataset):
     def __init__(self, image_root, gt_root, trainsize):
         self.trainsize = trainsize
@@ -80,6 +83,7 @@ class SkinDataset(data.Dataset):
 
     def __len__(self):
         return self.size
+
 
 class Bottle2neck(nn.Module):
     expansion = 4
@@ -637,7 +641,8 @@ if __name__ == '__main__':
 
     # ---- build models ----
     # torch.cuda.set_device(0)  # set your gpu device
-    model = MFSNet().cuda()
+    # model = MFSNet().cuda()
+    model = MFSNet()
 
     # ---- flops and params ----
     params = model.parameters()
